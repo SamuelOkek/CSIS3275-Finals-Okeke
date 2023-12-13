@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Savings Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        h1 {
+            text-align: center;
+            background-color: white;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .delete {
+            background-color: orangered;
+        }
+        .edit1{
+            background-color: green;
+        }
+        .form-container {
+            background-color: blue;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .save-btn {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<h1>Final Exam set C</h1>
+<h2>Category Sales Summary Table</h2>
+<table class="table table-striped sales-table">
+    <thead>
+    <tr>
+        <th>Category Code</th>
+        <th>Category Description</th>
+        <th>Total Sales</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Your data rows for Category Sales Summary here -->
+    </tbody>
+</table>
+<div class="container">
+    <div class="form-container">
+        <form method="GET">
+            <div class="form-group">
+                <label for="receipt">Receipt Number:</label>
+                <input type="text" name="receipt" class="form-control" id="receipt" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="itemType">Item Type:</label>
+                <select name="itemType" class="form-control" id="itemType" required>
+                    <option value="J102A">J102A:Coke</option>
+                    <option value="J102B">J102B:Vines Paper pad</option>
+                    <option value="J102C">J102C:Pepsi</option>
+                    <option value="J103C">J103C:Purina Dog Food</option>
+                    <option value="J101C">J101C:Xyz Eraser</option>
+                    <option value="J103D">J103D:Dog chew toy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" class="form-control" id="quantity" value="0" required>
+            </div>
+            <div class="form-group">
+                <label for="transactionDate">Transaction Date:</label>
+                <input type="date" name="transactionDate" class="form-control" id="transactionDate" required>
+            </div>
+            <button type="submit" class="btn btn-success save-btn">Save</button>
+        </form>
+    </div>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Receipt No</th>
+            <th>Item Code</th>
+            <th>Quantity</th>
+            <th>Transaction Date</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="categorylist" type=""*/-->
+        <tr>
+            <td>1001</td>
+            <td>J102A</td>
+            <td>3.0</td>
+            <td>2023-08-01</td>
+
+            <td  class="edit1"> <a type="button" class="btn btn-primary"
+                    href="update-todo?id=${todo.custno}"
+                    >Edit</a> </td>
+            <td> <a type="button" class="btn btn-primary delete"
+                    onClick="return confirm('Are you sure you want to delete the record ?')">Delete</a> </td>
+
+        </tr>
+        <tr th:each="p:${categorylist}">
+            <td th:text="${p.recno}"></td>
+            <td th:text="${p.icode}"></td>
+            <td th:text="${p.qty}"></td>
+            <td th:text="${p.id}"></td>
+            <td> <a type="button" class="btn btn-primary delete"
+                    onClick="return confirm('Are you sure you want to delete the record ?')" th:href="@{delete-todo(id=${p.custno})}" >Delete</a> </td>
+            <td> <a type="button" class="btn btn-primary"
+                    href="update-todo?id=${todo.custno}"
+                    th:href="@{update-todo(id=${p.custno})}">Edit</a> </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
